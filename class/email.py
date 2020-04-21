@@ -1,5 +1,3 @@
-from functions.caracteres_proibidos import *;
-from functions.abrevia_sobrenomes import *;
 from log.log_funções import *;
 
 PlataformasDisponiveis = ['outlook'];
