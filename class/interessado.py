@@ -1,4 +1,5 @@
-from functions.caracteres_proibidos import TrataLetrasPermitidas;
+from functions.caracteres_proibidos import *;
+from functions.abrevia_sobrenomes import *;
 from log.log_funções import PrintarLogFunção;
 
 class Interessado:
@@ -78,18 +79,7 @@ class Interessado:
         try:
             self.setNomeCompleto(self.getNomeCompleto.title());
             if len(self.getNomeCompleto) > 60:
-                Nomes = self.getNomeCompleto.split()
-                for Nome in Nomes:
-                    if Nome in self.getSobrenome and len(Nome) >= 3:
-                        Nome = upper(self.getSobrenome[:1]) + ".";
-
-                self.setNomeCompleto = None;
-                for Palavra in Nome:
-                    self.setNomeCompleto += Palavra;
-
-            Nome = None;
-            Palavra = None;
-            Palavras = None;
+                self.setNomeCompleto = AbreviarSobrenomes(self.getNomeCompleto, self.getSobrenome);
 
             PrintarLogFunção(True, f"{self.__EndereçoClasse}", "Método TrataNomeCompleto");
             return True;
