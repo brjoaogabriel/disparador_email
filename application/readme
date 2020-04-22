@@ -1,0 +1,42 @@
+--------------------------------------------------------
+CREATE DATABASE info_pessoas;
+
+USE info_pessoas;
+
+CREATE TABLE tab_pessoas(
+	id_pessoa			varchar(9) primary key not null,
+	nome				varchar(60) not null,
+    sobrenome			varchar(60) not null,
+    email				varchar(256) not null,
+    data_nascimento		datetime
+);
+--------------------------------------------------------
+
+--------------------------------------------------------
+USE info_pessoas;
+
+CREATE TABLE logs_disparo(
+	sistema_operacional				varchar(24) not null,
+    login_maquina					varchar(24) not null,
+    nome_maquina					varchar(24) not null,
+    log_horario						time,
+    log_data						date
+);
+--------------------------------------------------------
+
+--------------------------------------------------------
+USE info_pessoas;
+
+CREATE TABLE logs_execucoes(
+	sistema_operacional				varchar(24) not null,
+    login_maquina					varchar(24) not null,
+    nome_maquina					varchar(24) not null,
+    log_horario						time,
+    log_data						date,
+    observacao						varchar(60)
+);
+--------------------------------------------------------
+
+--------------------------------------------------------
+
+--------------------------------------------------------
