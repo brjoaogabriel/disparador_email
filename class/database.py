@@ -13,6 +13,7 @@ class Database:
         self.__charset = 'utf8mb4';
         self.__conexao = None;
         self.__cursor = None;
+        self.__EndereçoClasse = "disparador_email.class.database.py";
 
     @property
     def getPorta(self):
@@ -58,29 +59,69 @@ class Database:
         self.__cursor = Cursor;
 
     def ConectarBase(self):
-        self.setConexao = pymysql.connect(
-            port=self.getPorta,
-            host=self.getHost,
-            user=self.getUser,
-            password=self.getPassword,
-            db=self.getDatabase,
-            charset=self.getCharset,
-            cursorclass=self.getCursorClass
-        );
+        try:
+            self.setConexao = pymysql.connect(
+                port=self.getPorta,
+                host=self.getHost,
+                user=self.getUser,
+                password=self.getPassword,
+                db=self.getDatabase,
+                charset=self.getCharset,
+                cursorclass=self.getCursorClass
+            );
+            PrintarLogFunção(True, self.__EndereçoClasse, "Método ConectarBase");
+            return True;
+
+        except:
+            PrintarLogFunção(False, self.__EndereçoClasse, "Método ConectarBase");
+            return False;
 
     def DesconectarBase(self):
-        self.setConexao.close();
-        self.setConexao = None;
+        try:
+            self.setConexao.close();
+            self.setConexao = None;
+            PrintarLogFunção(True, self.__EndereçoClasse, "Método DesconectarBase");
+            return True;
+
+        except:
+            PrintarLogFunção(False, self.__EndereçoClasse, "Método DesconectarBase");
+            return False;
 
     def ConectarCursor(self):
-        self.setCursor = self.getConexao.cursor;
+        try:
+            self.setCursor = self.getConexao.cursor;
+            PrintarLogFunção(True, self.__EndereçoClasse, "Método ConectarCursor");
+            return True;
+
+        except:
+            PrintarLogFunção(False, self.__EndereçoClasse, "Método ConectarCursor");
+            return False;
 
     def DesconectarCursor(self):
-        self.setCursor.close();
+        try:
+            self.setCursor.close();
+            PrintarLogFunção(True, self.__EndereçoClasse, "Método DesconectarCursor");
+            return True;
 
-    def BuscaRegistro(self):
-        self.ConectarBase();
-        self.ConectarCursor();
+        except:
+            PrintarLogFunção(False, self.__EndereçoClasse, "Método DesconectarCursor");
+            return False;
 
-        self.DesconectarCursor();
-        self.DesconectarBase()
+    def BuscaRegistro(self, SQLString):
+        try:
+            self.ConectarBase();
+            self.ConectarCursor();
+
+            self.getConexao.begin();
+            self.getCursor.execute(SQLString);
+            self.getConexao.commit();
+
+            self.DesconectarCursor();
+            self.DesconectarBase()
+
+            PrintarLogFunção(True, self.__EndereçoClasse, "Método BuscaRegistro");
+            return True;
+
+        except:
+            PrintarLogFunção(False, self.__EndereçoClasse, "Método BuscaRegistro");
+            return False;
