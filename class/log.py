@@ -1,22 +1,23 @@
-import os;
-import platform;
-from log.log_funções import *;
+from log.log_funções import PrintarLogFunção;
 
-class Dispositivo:
+class Log(Dispositivo, Ambiente):
 
     def __init__(self):
-        self.__nomemaquina = platform.uname().node;
-        self.__sistemaoperacional = platform.uname().system;
-        self.__loginmaquina = os.environ['Username'];
+        Dispositivo.__init__();
+        Ambiente.__init__();
+        self.__EndereçoClasse = "disparador_email.class.log.py";
 
-    @property
-    def getNomeMaquina(self):
-        return self.__nomemaquina;
+    def RegistraLogTXT(self):
+        try:
+            with open("C:\Users\João\Documents\Projetos\disparador_email\log\logs_reg", 'a') as log_file:
+                log_file.write(f"{Dispositivo.getSistemaOperacional},"
+                               f"{Dispositivo.getLoginMaquina},"
+                               f"{Dispositivo.getNomeMaquina},"
+                               f"{Ambiente.getHorario},"
+                               f"{Ambiente.getData}");
+            PrintarLogFunção(True, self.__EndereçoClasse, "Método RegistraLogTXT");
+            return True;
 
-    @property
-    def getSistemaOperacional(self):
-        return self.__sistemaoperacional;
-
-    @property
-    def getLoginMaquina(self):
-        return self.__loginmaquina;
+        except:
+            PrintarLogFunção(False, self.__EndereçoClasse, "Método RegistraLogTXT");
+            return False;
