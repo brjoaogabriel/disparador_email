@@ -13,7 +13,7 @@ class Database:
         self.__charset = 'utf8mb4';
         self.__conexao = None;
         self.__cursor = None;
-        self.__EndereçoClasse = "disparador_email.class.database.py";
+        self.__EndereçoClasse = "disparador_email.classes.database.py";
 
     @property
     def getPorta(self):

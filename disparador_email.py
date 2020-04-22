@@ -1,0 +1,27 @@
+from log_paste.log_funções import *;
+import smtplib;
+from email.mime.multipart import MIMEMultipart;
+from email.mime.text import MIMEText;
+from email.mime.base import MIMEBase;
+from email import encoders;
+
+#Para chamar essa função, passe como parametro um objeto da classe outlookmail e a senha de acesso do email
+
+def Enviar_Email(Classe, Password):
+    OutlookApp = MIMEMultipart();
+
+    OutlookApp['From'] = Classe.getOrigem;
+    OutlookApp['To'] = Classe.getDestinatario;
+    OutlookApp['Subject'] = Classe.getAssunto;
+    OutlookApp.attach(MIMETEXT(Classe.getCorpo, 'html'));
+
+    ServidorConexao = smtplib.SMTP(Classe.getSMTPServer, Classe.getSMTPPort);
+    ServidorConexao.starttls();
+    ServidorConexao.login(Classe.getOrigem, Password);
+    Texto = OutlookApp.as_string();
+    ServidorConexao.sendmail(Classe.getOrigem, Classe.getDestinatario, Texto);
+    ServidorConexao.close();
+
+    OutlookApp = None;
+    ServidorConexao = None;
+    Texto = None;

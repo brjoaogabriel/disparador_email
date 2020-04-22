@@ -11,7 +11,7 @@ class Interessado:
         self.__email = Email;
         self.__datanascimento = DataNascimento;
         self.__id = ID;
-        self.__EndereçoClasse = "disparador_email.class.interessado.py";
+        self.__EndereçoClasse = "disparador_email.classes.interessado.py";
 
     @property
     def getNome(self):

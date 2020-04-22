@@ -10,13 +10,13 @@ class Email:
         self.__prearroba = self.__emailestrutura[0].lower();
         self.__posarroba = self.__emailestrutura[1].lower();
         self.__plataforma = Plataforma.title();
-        self.__EndereçoClasse = "disparador_email.class.email.py";
+        self.__EndereçoClasse = "disparador_email.classes.email.py";
 
     @property
     def getEmailCompleto(self):
         return self.__emailcompleto;
 
-    @@property
+    @property
     def getPreArroba(self):
         return self.__prearroba;
 

@@ -1,9 +1,4 @@
 from log_paste.log_funções import *;
-import smtplib;
-from email.mime.multipart import MIMEMultipart;
-from email.mime.text import MIMEText;
-from email.mime.base import MIMEBase;
-from email import encoders;
 
 class OutlookMail:
 
@@ -14,7 +9,7 @@ class OutlookMail:
         self.__corpo = Corpo;
         self.__smtpserver = "smtp.outlook.com";
         self.__smtpport = 587;
-        self.__EndereçoClasse = "disparador_email.class.outlookmail.py";
+        self.__EndereçoClasse = "disparador_email.classes.outlookmail.py";
 
     @property
     def getOrigem(self):
@@ -51,22 +46,3 @@ class OutlookMail:
     @getAssunto.setter
     def setAssunto(self, Assunto):
         self.__assunto = Assunto;
-
-    def EnviarEmail(self, password):
-        OutlookApp = MIMEMultipart();
-
-        OutlookApp['From'] = self.getOrigem;
-        OutlookApp['To'] = self.getDestinatario;
-        OutlookApp['Subject'] = self.getAssunto;
-        OutlookApp.attach(MIMETEXT(self.getCorpo, 'html'));
-
-        ServidorConexao = smtplib.SMTP(self.getSMTPServer, self.getSMTPPort);
-        ServidorConexao.starttls();
-        ServidorConexao.login(self.getOrigem, password);
-        Texto = OutlookApp.as_string();
-        ServidorConexao.sendmail(self.getOrigem, self.getDestinatario, Texto);
-        ServidorConexao.close();
-
-        OutlookApp = None;
-        ServidorConexao = None;
-        Texto = None;

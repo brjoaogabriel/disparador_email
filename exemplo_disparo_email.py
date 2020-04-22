@@ -9,10 +9,10 @@ from email import encoders;
 OutlookApp = MIMEMultipart()
 
 #Informando quem é a origem do e-mail
-OutlookApp['From'] = fromaddr
+OutlookApp['From'] = "contato_joaogabriel@outlook.com"
 
 #Informando quem é o destinatário do e-mail
-OutlookApp['To'] = toaddr
+OutlookApp['To'] = "contato_joaogabriel@outlook.com"
 
 #Informando qual é o assunto do e-mail
 OutlookApp['Subject'] = "Titulo do e-mail"
@@ -39,23 +39,26 @@ CorpoEmail = """
 OutlookApp.attach(MIMEText(CorpoEmail, 'html'));
 
 #Incluindo anexo
-NomeArquivo = 'teste.pdf'                                                       #Nome no arquivo a adicionar
-Anexo = open(NomeArquivo,'rb')                                                  #Abrindo arquivo
+#NomeArquivo = 'teste.pdf'                                                       #Nome no arquivo a adicionar
+#Anexo = open(NomeArquivo,'rb')                                                  #Abrindo arquivo
 
 #Realizando conversão para o tipo 64
-part = MIMEBase('application', 'octet-stream')
-part.set_payload((Anexo).read())
-encoders.encode_base64(part)
-part.add_header("Content-Disposition", F"attachment; filename= {NomeArquivo}")
-OutlookApp.attach(part)
+#part = MIMEBase('application', 'octet-stream')
+#part.set_payload((Anexo).read())
+#encoders.encode_base64(part)
+#part.add_header("Content-Disposition", F"attachment; filename= {NomeArquivo}")
+#OutlookApp.attach(part)
 
 #Fechando o arquivo
-Anexo.close()
+#Anexo.close()
 
 #Declarando variáveis da biblioteca SMTP
 server = smtplib.SMTP('smtp.outlook.com', 587)          #informando servidor e porta SMTP
 server.starttls()                                       #Informando tipo de validação
-server.login(fromaddr, "123qwe321ewq!@#QWE#@!EWQ")      #Passando Login e Senha
+server.login("contato_joaogabriel@outlook.com",
+             "123qwe321ewq!@#QWE#@!EWQ")                #Passando Login e Senha
 Texto = OutlookApp.as_string()                          #Informando mensagem do e-mail
-server.sendmail(fromaddr, toaddr, Texto)                #Enviando o email
+server.sendmail("contato_joaogabriel@outlook.com",
+                "contato_joaogabriel@outlook.com",
+                Texto)                                  #Enviando o email
 server.quit()                                           #Fechando conexão com o servidor
