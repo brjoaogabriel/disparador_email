@@ -26,8 +26,8 @@ O projeto será desenvolvido com base nos principios da orientação a objetos, 
 Dia, Atividade
 1, Estruturação de metas, objetivos, visão, valores, funcionamento e necessidades.
 2, Desenvolvimento de classes, métodos, atributos, propriedades, setters e getters.
-3, Desenvolvimento de estrutura lógica e algorítmos para disparo de e-mail.
-4, Desenvolvimento e estruturação da base de dados.
+3, Desenvolvimento e estruturação da base de dados.
+4, Desenvolvimento de estrutura lógica e algorítmos para disparo de e-mail.
 5, Validação do funcionamento da aplicação e finalização.
 
 # When?
