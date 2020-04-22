@@ -1,4 +1,4 @@
-from log.log_funções import PrintarLogFunção;
+from log_paste.log_funções import PrintarLogFunção;
 
 #Para cada nome que estiver dentro de sobrenomes, abrevia.
 #Exemplo: "João Gabriel Maciel" se torna "João Gabriel M."

@@ -1,6 +1,6 @@
 from functions.caracteres_proibidos import *;
 from functions.abrevia_sobrenomes import *;
-from log.log_funções import *;
+from log_paste.log_funções import *;
 
 class Interessado:
 

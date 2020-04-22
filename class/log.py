@@ -1,4 +1,4 @@
-from log.log_funções import PrintarLogFunção;
+from log_paste.log_funções import PrintarLogFunção;
 
 class Log(Dispositivo, Ambiente):
 
@@ -9,7 +9,7 @@ class Log(Dispositivo, Ambiente):
 
     def RegistraLogTXT(self):
         try:
-            with open("C:\Users\João\Documents\Projetos\disparador_email\log\logs_reg", 'a') as log_file:
+            with open("C:\\Users\\João\\Documents\\Projetos\\disparador_email\\log_paste\\logs_reg", 'a') as log_file:
                 log_file.write(f"{Dispositivo.getSistemaOperacional},"
                                f"{Dispositivo.getLoginMaquina},"
                                f"{Dispositivo.getNomeMaquina},"

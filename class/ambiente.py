@@ -1,5 +1,5 @@
 import datetime as date;
-from log.log_funções import PrintarLogFunção;
+from log_paste.log_funções import PrintarLogFunção;
 
 class Ambiente:
 

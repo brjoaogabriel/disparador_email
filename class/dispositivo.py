@@ -1,6 +1,6 @@
 import os;
 import platform;
-from log.log_funções import *;
+from log_paste.log_funções import *;
 
 class Dispositivo:
 
