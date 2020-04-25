@@ -1,32 +1,3 @@
-"""
-
-Aqui o usuário deve informar quais vão ser os tipos de filtros e de acordo com isso uma
-consulta sql será formulada
-
-SQLString = Select * from info_pessoas;
-
-Se não for escolhido nenhum filtro, então a consulta deve ser essa, a cada filtro que o usuário escolha, um filtro
-novo deve ser aplicado
-
-Filtros...
-id_pessoa:
-    IN  (lista)
-
-nome:
-    IN (lista)
-
-sobrenome:
-    IN (lista)
-
-email:
-    IN (lista)
-
-data_nascimento:
-    = hoje
-    = mes de hoje
-
-"""
-
 def Requisita_Filtros():
     Continua:        bool=False;
     Confirmacao:     str;
@@ -67,6 +38,7 @@ def Requisita_Filtros():
     Entrada = None;
 
     return Filtros;
+
 
 Filtros_Disponiveis = [1,2,3,4,5,6];
 print(Requisita_Filtros());
