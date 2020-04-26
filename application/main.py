@@ -22,6 +22,7 @@ import disparador_email
 
 DatabaseObject = Database();
 DatabaseObject.BuscaRegistro(Trata_Filtros());
-#print(DatabaseObject.getCursor.fetchall());
+Dados = DatabaseObject.getCursor.fetchall();
 DatabaseObject = None;
 
+print(Dados[0]['email']);

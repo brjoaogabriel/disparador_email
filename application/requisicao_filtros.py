@@ -82,4 +82,4 @@ def Trata_Filtros():
     PrintarLogFunção(True, EndereçoFunção, "Função Trata_Filtros");
     SQL_info = None;
     print(f"......... {SelecaoSQL}");
-    return SelecaoSQL;
+    return f"{SelecaoSQL} LIMIT 1";
