@@ -20,9 +20,42 @@ from application.gera_comandos import *
 import disparador_email
 ###################################
 
+CaminhoMain = "disparador_email.application.main.py";
+
+def Captura_Dados(DatabaseObject):
+    Retorna:    bool=False;
+
+    while Retorna != True:
+        try:
+            PrintarLogFunção(True, CaminhoMain, "Função Captura_Dados");
+            return DatabaseObject.getCursor.fetchall();
+
+        except:
+            PrintarLogFunção(False, CaminhoMain, "Função Captura_Dados");
+            return "ERRO";
+
+def VerificaCerteza():
+    Entrada = str(input("Se você tem certeza que deseja continuar, digite SIM "));
+    return Entrada == "SIM";
+
+Continua:   bool;
+
 DatabaseObject = Database();
 DatabaseObject.BuscaRegistro(Trata_Filtros());
-Dados = DatabaseObject.getCursor.fetchall();
+
+Dados = Captura_Dados(DatabaseObject);
+
+if Dados == "ERRO":
+    print("Finalizando execução...");
+    exit();
+
+if VerificaCerteza() == False:
+    print("Usuário não deseja continuar, sendo assim, estamos encerrando a operação");
+    exit();
+
+LoopingDisparo(Dados);
+
+
 DatabaseObject = None;
 
-print(Dados[0]['email']);
+print(len(Dados));
