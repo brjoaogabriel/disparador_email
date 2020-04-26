@@ -5,6 +5,8 @@ from email.mime.text import MIMEText;
 from email.mime.base import MIMEBase;
 from email import encoders;
 
+Caminho = "disparador_email.disparador_email.py";
+
 #Para chamar essa função, passe como parametro um objeto da classe outlookmail e a senha de acesso do email
 
 def Enviar_Email(Classe, Password):
@@ -22,6 +24,7 @@ def Enviar_Email(Classe, Password):
     ServidorConexao.sendmail(Classe.getOrigem, Classe.getDestinatario, Texto);
     ServidorConexao.close();
 
+    PrintarLogFunção(True, Caminho, "Função Enviar_Email");
     OutlookApp = None;
     ServidorConexao = None;
     Texto = None;

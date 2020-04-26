@@ -43,3 +43,10 @@ class Email:
     def ValidaPlataforma(self):
         PrintarLogFunção((self.getPlataforma in PlataformasDisponiveis), self.__EndereçoClasse, "Método ValidaPlataforma");
         return self.getPlataforma.lower() in PlataformasDisponiveis;
+
+    def ValidacaoCompleta(self):
+        PrintarLogFunção((self.getPlataforma in PlataformasDisponiveis), self.__EndereçoClasse, "Método ValidacaoCompleta");
+        return not False in ((self.ValidaPreArroba()==True),
+                (self.ValidaPosArroba()==True),
+                (self.ValidaEmailCompleto()==True),
+                (self.ValidaPlataforma()==True));

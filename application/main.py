@@ -36,7 +36,22 @@ def Captura_Dados(DatabaseObject):
 
 def VerificaCerteza():
     Entrada = str(input("Se você tem certeza que deseja continuar, digite SIM "));
+    PrintarLogFunção(True, CaminhoMain, "Função VerificaCerteza");
     return Entrada == "SIM";
+
+def VerificaEmail(Email):
+    Email.append(str(input("Digite o seu e-mail duas vezes")));
+    Email.append(str(input()));
+
+    PrintarLogFunção(True, CaminhoMain, "Função VerificaEmail");
+    return not (Email[0] != Email[1]);
+
+def VerificaSenha(Senha):
+    Senha.append(str(input("Digite o sua senha duas vezes")));
+    Senha.append(str(input()));
+
+    PrintarLogFunção(True, CaminhoMain, "Função VerificaSenha");
+    return not (Senha[0] != Senha[1]);
 
 Continua:   bool;
 
@@ -53,9 +68,52 @@ if VerificaCerteza() == False:
     print("Usuário não deseja continuar, sendo assim, estamos encerrando a operação");
     exit();
 
-LoopingDisparo(Dados);
+EmailInformado = [];
+SenhaInformada = [];
+
+if VerificaEmail(EmailInformado) != True:
+    print("Finalizando execução... emails não conferem");
+    exit();
+
+else:
+    print("Verificação de e-mail aprovada");
+
+if VerificaSenha(SenhaInformada) != True:
+    print("Finalizando execução... senhas não conferem");
+    exit();
+
+else:
+    print("Verificação de senha aprovada");
+
+for i in range(0, len(Dados), 1):
+    EmailInteressado = Email(Dados[i]['email'], 'outlook');
+    if EmailInteressado.ValidacaoCompleta() == True:
+        InfoInteressado = Interessado(
+            Dados[i]['nome'],
+            Dados[i]['sobrenome'],
+            Dados[i]['nome'] + Dados[i]['sobrenome'],
+            EmailInteressado.getEmailCompleto,
+            Dados[i]['data_nascimento'],
+            Dados[i]['id_pessoa']
+        );
+
+        strHTML = "<b>negrito</b>";
+
+        EmailOut = OutlookMail(EmailInformado[0], InfoInteressado.getEmail, f"Olá, {InfoInteressado.getNome}", strHTML);
+
+        disparador_email.Enviar_Email(EmailOut, SenhaInformada[0]);
+
+        EmailInformado = None;
+        InfoInteressado = None;
+
+
+    else:
+        print(f"Email inválido! {EmailInteressado.getEmailCompleto}");
+
+
+    print(EmailInteressado.getEmailCompleto);
+
+    EmailInteressado = None;
 
 
 DatabaseObject = None;
-
-print(len(Dados));
