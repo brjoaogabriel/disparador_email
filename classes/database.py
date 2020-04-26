@@ -89,7 +89,7 @@ class Database:
 
     def ConectarCursor(self):
         try:
-            self.setCursor = self.getConexao.cursor;
+            self.setCursor = self.getConexao.cursor();
             PrintarLogFunção(True, self.__EndereçoClasse, "Método ConectarCursor");
             return True;
 
