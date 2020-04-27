@@ -36,96 +36,105 @@ def Captura_Dados(DatabaseObject):
             return "ERRO";
 
 def VerificaCerteza():
-    Entrada = str(input("Se você tem certeza que deseja continuar, digite SIM "));
+    Entrada = str(input("\nSe você tem certeza que deseja continuar, digite SIM "));
     PrintarLogFunção(True, CaminhoMain, "Função VerificaCerteza");
     return Entrada == "SIM";
 
 def VerificaEmail(Email):
-    Email.append(str(input("Digite o seu e-mail duas vezes")));
+    Email.append(str(input("\nDigite o seu e-mail duas vezes\n")));
     Email.append(str(input()));
 
     PrintarLogFunção(True, CaminhoMain, "Função VerificaEmail");
     return not (Email[0] != Email[1]);
 
 def VerificaSenha(Senha):
-    Senha.append(str(input("Digite o sua senha duas vezes")));
+    Senha.append(str(input("\nDigite o sua senha duas vezes\n")));
     Senha.append(str(input()));
 
     PrintarLogFunção(True, CaminhoMain, "Função VerificaSenha");
     return not (Senha[0] != Senha[1]);
 
-Continua:   bool;
+def Executa_Principal():
+    Continua:   bool;
 
-DatabaseObject = Database();
-DatabaseObject.BuscaRegistro(Trata_Filtros());
+    DatabaseObject = Database();
+    DatabaseObject.BuscaRegistro(Trata_Filtros());
 
-Dados = Captura_Dados(DatabaseObject);
+    Dados = Captura_Dados(DatabaseObject);
 
-if Dados == "ERRO":
-    print("Finalizando execução...");
-    exit();
+    if Dados == "ERRO":
+        print("Finalizando execução...");
+        exit();
 
-if VerificaCerteza() == False:
-    print("Usuário não deseja continuar, sendo assim, estamos encerrando a operação");
-    exit();
+    if VerificaCerteza() == False:
+        print("Usuário não deseja continuar, sendo assim, estamos encerrando a operação");
+        exit();
 
-EmailInformado = [];
-SenhaInformada = [];
+    EmailInformado = [];
+    SenhaInformada = [];
 
-if VerificaEmail(EmailInformado) != True:
-    print("Finalizando execução... emails não conferem");
-    exit();
-
-else:
-    print("Verificação de e-mail aprovada");
-
-if VerificaSenha(SenhaInformada) != True:
-    print("Finalizando execução... senhas não conferem");
-    exit();
-
-if VerificaCerteza() == False:
-    print("Usuário não deseja continuar, sendo assim, estamos encerrando a operação");
-    exit();
-
-else:
-    print("Verificação de senha aprovada");
-
-print(f"Iniciando o disparo de e-mails...");
-for i in range(0, len(Dados), 1):
-    EmailInteressado = Email(Dados[i]['email'], 'outlook');
-    if EmailInteressado.ValidacaoCompleta() == True:
-        InfoInteressado = Interessado(
-            Dados[i]['nome'],
-            Dados[i]['sobrenome'],
-            Dados[i]['nome'] + Dados[i]['sobrenome'],
-            EmailInteressado.getEmailCompleto,
-            Dados[i]['data_nascimento'],
-            Dados[i]['id_pessoa']
-        );
-
-        print(f"Nome:                  {Dados[i]['nome']}");
-        print(f"Sobrenome:             {Dados[i]['sobrenome']}");
-        print(f"Email:                 {InfoInteressado.getEmail}");
-        print(f"Data Nascimento:       {Dados[i]['data_nascimento']}");
-        print(f"ID Pessoa:             {Dados[i]['id_pessoa']}");
-
-
-        strHTML = "<b>Você foi escolhido pra lamber a minha pica kkkkkkk te amo</b>";
-
-        EmailOut = OutlookMail(EmailInformado[0], InfoInteressado.getEmail, f"Olá, {InfoInteressado.getNomeCompleto}", strHTML);
-
-        Procedimento_Enviar_Email(EmailOut, SenhaInformada[0]);
-
-        InfoInteressado = None;
-
+    if VerificaEmail(EmailInformado) != True:
+        print("Finalizando execução... emails não conferem");
+        exit();
 
     else:
-        print(f"Email inválido! {EmailInteressado.getEmailCompleto}");
+        print("Verificação de e-mail aprovada");
+
+    if VerificaSenha(SenhaInformada) != True:
+        print("Finalizando execução... senhas não conferem");
+        exit();
+
+    if VerificaCerteza() == False:
+        print("Usuário não deseja continuar, sendo assim, estamos encerrando a operação");
+        exit();
+
+    else:
+        print("Verificação de senha aprovada");
+
+    print(f"Iniciando o disparo de e-mails...");
+    Contador:   int=0;
+    for i in range(0, len(Dados), 1):
+        EmailInteressado = Email(Dados[i]['email'], 'outlook');
+        if EmailInteressado.ValidacaoCompleta() == True:
+            InfoInteressado = Interessado(
+                Dados[i]['nome'],
+                Dados[i]['sobrenome'],
+                Dados[i]['nome'] + " " + Dados[i]['sobrenome'],
+                EmailInteressado.getEmailCompleto,
+                Dados[i]['data_nascimento'],
+                Dados[i]['id_pessoa']
+            );
+
+            print();
+            print(f"Nome:                  {Dados[i]['nome']}");
+            print(f"Sobrenome:             {Dados[i]['sobrenome']}");
+            print(f"Email:                 {InfoInteressado.getEmail}");
+            print(f"Data Nascimento:       {Dados[i]['data_nascimento']}");
+            print(f"ID Pessoa:             {Dados[i]['id_pessoa']}");
 
 
-    print(EmailInteressado.getEmailCompleto);
+            strHTML = f"<b>Amo voce</b>";
 
-    EmailInteressado = None;
+            EmailOut = OutlookMail(EmailInformado[0], InfoInteressado.getEmail, f"Olá, {InfoInteressado.getNomeCompleto}", strHTML);
+
+            Procedimento_Enviar_Email(EmailOut, SenhaInformada[0]);
+
+            InfoInteressado = None;
+            Contador += 1;
+
+        else:
+            print(f"Email inválido! {EmailInteressado.getEmailCompleto}");
 
 
-DatabaseObject = None;
+        print(EmailInteressado.getEmailCompleto);
+
+        EmailInteressado = None;
+
+
+    DatabaseObject = None;
+    print(f"Disparo de email finalizo... \nEmails enviados: {Contador}");
+    Contador = None;
+    PrintarLogFunção(True, CaminhoMain, "Procedimento main.py");
+    return True;
+
+Executa_Principal();

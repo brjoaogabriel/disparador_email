@@ -22,7 +22,7 @@ def Requisita_Filtros(Filtros_Disponiveis):
         while Continua != True:
 
             try:
-                Entrada = int(input(f"Por favor, insira o filtro (entre {min(Filtros_Disponiveis) + 1} e {max(Filtros_Disponiveis) + 1}): "));
+                Entrada = int(input(f"\nPor favor, insira o filtro (entre {min(Filtros_Disponiveis) + 1} e {max(Filtros_Disponiveis) + 1}): "));
                 if Entrada not in Filtros:
                     if Entrada - 1 in Filtros_Disponiveis:
                         Filtros.append(Entrada - 1);
