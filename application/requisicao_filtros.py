@@ -16,36 +16,43 @@ def Requisita_Filtros(Filtros_Disponiveis):
     Filtros = [];
 
     print(InformacaoFiltros);
-    while Continua != True:
+    DesejoFiltro = str(input("Digite SIM caso deseje aplicar filtros na busca    "));
 
-        try:
-            Entrada = int(input(f"Por favor, insira o filtro (entre {min(Filtros_Disponiveis) + 1} e {max(Filtros_Disponiveis) + 1}): "));
-            if Entrada not in Filtros:
-                if Entrada - 1 in Filtros_Disponiveis:
-                    Filtros.append(Entrada - 1);
-                    print(f"Filtro {Entrada} adicionado com sucesso.");
+    if DesejoFiltro == "SIM":
+        while Continua != True:
+
+            try:
+                Entrada = int(input(f"Por favor, insira o filtro (entre {min(Filtros_Disponiveis) + 1} e {max(Filtros_Disponiveis) + 1}): "));
+                if Entrada not in Filtros:
+                    if Entrada - 1 in Filtros_Disponiveis:
+                        Filtros.append(Entrada - 1);
+                        print(f"Filtro {Entrada} adicionado com sucesso.");
+
+                    else:
+                        print(f"Esse filtro não se encontra disponível! Por favor, selecione entre {min(Filtros_Disponiveis) + 1} e {max(Filtros_Disponiveis) + 1}");
 
                 else:
-                    print(f"Esse filtro não se encontra disponível! Por favor, selecione entre {min(Filtros_Disponiveis) + 1} e {max(Filtros_Disponiveis) + 1}");
+                    print(f"Você já inseriu esse filtro... Filtros solicitados: {Filtros}");
 
-            else:
-                print(f"Você já inseriu esse filtro... Filtros solicitados: {Filtros}");
+                Confirmacao = str(input("Digite 'OK' caso queira continuar ou '+' caso queira inserir mais filtros"));
+                if Confirmacao == "+":
+                    Continua = False;
 
-            Confirmacao = str(input("Digite 'OK' caso queira continuar ou '+' caso queira inserir mais filtros"));
-            if Confirmacao == "+":
-                Continua = False;
+                elif Confirmacao == "OK":
+                    Continua = True;
 
-            elif Confirmacao == "OK":
-                Continua = True;
+                else:
+                    print("ERRO NA ENTRADA DOS DADOS.");
 
-            else:
-                print("ERRO NA ENTRADA DOS DADOS.");
+            except:
+                print("Erro na solicitação do filtro... por favor, insera um número.");
 
-        except:
-            print("Erro na solicitação do filtro... por favor, insera um número.");
+            print();
 
-        print();
+    else:
+        print(f"Ok... como a sua resposta ({DesejoFiltro}) foi diferente de SIM, vamos prosseguir sem filtro");
 
+    DesejoFiltro = None;
     Continua = None;
     Confirmacao = None;
     Entrada = None;

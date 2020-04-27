@@ -1,5 +1,6 @@
 from log_paste.log_funções import *;
 import smtplib;
+
 from email.mime.multipart import MIMEMultipart;
 from email.mime.text import MIMEText;
 from email.mime.base import MIMEBase;
@@ -9,13 +10,13 @@ Caminho = "disparador_email.disparador_email.py";
 
 #Para chamar essa função, passe como parametro um objeto da classe outlookmail e a senha de acesso do email
 
-def Enviar_Email(Classe, Password):
+def Procedimento_Enviar_Email(Classe, Password):
     OutlookApp = MIMEMultipart();
 
     OutlookApp['From'] = Classe.getOrigem;
     OutlookApp['To'] = Classe.getDestinatario;
     OutlookApp['Subject'] = Classe.getAssunto;
-    OutlookApp.attach(MIMETEXT(Classe.getCorpo, 'html'));
+    OutlookApp.attach(MIMEText(Classe.getCorpo, 'html'));
 
     ServidorConexao = smtplib.SMTP(Classe.getSMTPServer, Classe.getSMTPPort);
     ServidorConexao.starttls();

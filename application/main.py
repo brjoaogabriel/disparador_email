@@ -8,6 +8,7 @@ from classes.interessado import *
 from classes.log import *
 from classes.outlookmail import *
 ###################################
+from disparador_email import Procedimento_Enviar_Email
 from log_paste.log_funções import *
 from log_paste.logs_reg import *
 ###################################
@@ -82,9 +83,14 @@ if VerificaSenha(SenhaInformada) != True:
     print("Finalizando execução... senhas não conferem");
     exit();
 
+if VerificaCerteza() == False:
+    print("Usuário não deseja continuar, sendo assim, estamos encerrando a operação");
+    exit();
+
 else:
     print("Verificação de senha aprovada");
 
+print(f"Iniciando o disparo de e-mails...");
 for i in range(0, len(Dados), 1):
     EmailInteressado = Email(Dados[i]['email'], 'outlook');
     if EmailInteressado.ValidacaoCompleta() == True:
@@ -97,13 +103,19 @@ for i in range(0, len(Dados), 1):
             Dados[i]['id_pessoa']
         );
 
-        strHTML = "<b>negrito</b>";
+        print(f"Nome:                  {Dados[i]['nome']}");
+        print(f"Sobrenome:             {Dados[i]['sobrenome']}");
+        print(f"Email:                 {InfoInteressado.getEmail}");
+        print(f"Data Nascimento:       {Dados[i]['data_nascimento']}");
+        print(f"ID Pessoa:             {Dados[i]['id_pessoa']}");
 
-        EmailOut = OutlookMail(EmailInformado[0], InfoInteressado.getEmail, f"Olá, {InfoInteressado.getNome}", strHTML);
 
-        disparador_email.Enviar_Email(EmailOut, SenhaInformada[0]);
+        strHTML = "<b>Você foi escolhido pra lamber a minha pica kkkkkkk te amo</b>";
 
-        EmailInformado = None;
+        EmailOut = OutlookMail(EmailInformado[0], InfoInteressado.getEmail, f"Olá, {InfoInteressado.getNomeCompleto}", strHTML);
+
+        Procedimento_Enviar_Email(EmailOut, SenhaInformada[0]);
+
         InfoInteressado = None;
 
 
